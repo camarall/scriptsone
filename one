@@ -1,0 +1,49 @@
+#!/bin/bash
+
+pacman -S nano /
+networkmanager dhcpd systemd-resolved /
+xorg-server mesa xf86-video-intel xorg-zwayland/
+gdm gnome-session gnome-shell firefox gnome-tweaks gnome-calendar gnome-photos gnome-settings gnome-terminal terminator/
+alsa alsa-utils  pipewire-alsa pipewire-pulse/
+vlc mocp/
+firefox git axel wget/
+grub efibootmgr os-prober
+
+echo
+echo
+echo "---------- INFO ------------ "
+echo "Pacotes instalados"
+echo "-----------------------------"
+echo
+echo
+
+echo
+echo
+echo "---------- INFO ------------ "
+echo "Config internet"
+echo "-----------------------------"
+echo
+echo
+echo "! Listagem Wi-Fi"
+echo
+nmcli device wifi list
+echo
+echo "Wi-Fi" && read WIFI
+echo "senha" && read SENHA
+echo
+nmcli device wifi connect $WIFI password $SENHA
+
+systemctl enable NetworkManager.service 
+systemctl enable systemdresolved.service
+systemctl start --user pipewire-pulse.service
+
+echo
+echo
+echo "---------- INFO ------------"
+echo "Serviços ativados, mestre"
+echo "-----------------------------" 
+echo
+echo
+echo "Finalizando script, siga para instalação do grub."
+
+
